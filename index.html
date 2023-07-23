@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload de Arquivos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1 class="text-center mt-5">Upload de Geojson</h1>
+    <main class="card p-2 m-auto mt-5" style="width: 24rem;">
+        <form action="http://localhost:5252/file" enctype="multipart/form-data" method="POST">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Selecione um arquivo</label>
+                <input class="form-control" name="file" type="file" id="formFile">
+            </div>
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">Nome da camada</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="nameInput"
+                        aria-describedby="nameHelp"
+                        required
+                >
+                <div id="nameHelp" class="form-text">Por faver digite um nome para o arquivo.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </main>
+
+    <script>
+        async function saveFile (event) {
+            const url = "http://localhost:5252/files";
+
+            const fileField = document.querySelector('input[type="file"]');
+            const data = new FormData("file", fileField.files[0]);
+            const response = await fetch(url, {
+                method: "post",
+                body: data
+            })
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</body>
+</html>
